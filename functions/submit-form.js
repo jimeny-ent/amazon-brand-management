@@ -41,6 +41,7 @@ exports.handler = async (event) => {
           date: { 
             start: new Date().toISOString()
           }
+        }
       }
     });
 

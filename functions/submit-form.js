@@ -36,7 +36,11 @@ exports.handler = async (event) => {
         },
         Info: {
           rich_text: [{ text: { content: message } }]
-        }
+        },
+        "Response Date": {
+          date: { 
+            start: new Date().toISOString()
+          }
       }
     });
 

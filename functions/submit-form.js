@@ -5,12 +5,12 @@ exports.handler = async (event) => {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  const notion = new Client({ auth: process.env.ntn_x47719146521lTZLmwUJweBDkhnj4AprqnWxhEwi0ZT1x4 });
+  const notion = new Client({ auth: process.env.NOTION_API_KEY });
   const { company, email, message } = JSON.parse(event.body);
 
   try {
     await notion.pages.create({
-      parent: { database_id: process.env.13e11c6da39c8003a00ff06339c07e9c },
+      parent: { database_id: process.env.NOTION_DATABASE_ID },
       properties: {
         Name: {
           title: [{ text: { content: company } }]
@@ -18,7 +18,7 @@ exports.handler = async (event) => {
         Email: {
           email: email
         },
-        Info: {
+        Message: {
           rich_text: [{ text: { content: message } }]
         }
       }
@@ -29,6 +29,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({ message: 'Success' })
     };
   } catch (error) {
+    console.error('Error:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: 'Failed to submit to Notion' })

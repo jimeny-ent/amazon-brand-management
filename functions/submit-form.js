@@ -12,9 +12,15 @@ exports.handler = async (event) => {
     await notion.pages.create({
       parent: { database_id: process.env.13e11c6da39c8003a00ff06339c07e9c },
       properties: {
-        Company: { title: [{ text: { content: company } }] },
-        Email: { email: email },
-        Message: { rich_text: [{ text: { content: message } }] }
+        Name: {
+          title: [{ text: { content: company } }]
+        },
+        Email: {
+          email: email
+        },
+        Info: {
+          rich_text: [{ text: { content: message } }]
+        }
       }
     });
 

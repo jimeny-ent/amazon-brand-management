@@ -97,37 +97,57 @@
     <section id="contact" class="py-20">
         <div class="container mx-auto px-4 max-w-xl">
             <h2 class="text-3xl font-bold text-center mb-12">Ready to Grow?</h2>
-            <form id="contactForm" class="space-y-6">
-                <div>
-                    <input 
-                        type="text" 
-                        name="company"
-                        placeholder="Company Name"
-                        required
-                        class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:outline-none"
-                    />
-                </div>
-                <div>
-                    <input 
-                        type="email" 
-                        name="email"
-                        placeholder="Email"
-                        required
-                        class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:outline-none"
-                    />
-                </div>
-                <div>
-                    <textarea 
-                        name="message"
-                        placeholder="Tell us about your brand"
-                        required
-                        class="w-full p-3 border rounded-lg h-32 focus:ring-2 focus:ring-blue-600 focus:outline-none"
-                    ></textarea>
-                </div>
-                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
-                    Get Started
-                </button>
-            </form>
+            <form id="contactForm" class="space-y-4">
+  <div>
+    <input type="text" id="company" name="company" placeholder="Company Name" required 
+           class="w-full px-4 py-2 border rounded-lg focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+  </div>
+  <div>
+    <input type="email" id="email" name="email" placeholder="Email Address" required
+           class="w-full px-4 py-2 border rounded-lg focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+  </div>
+  <div>
+    <textarea id="message" name="message" placeholder="Your Message" required
+              class="w-full px-4 py-2 border rounded-lg focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              rows="4"></textarea>
+  </div>
+  <button type="submit" 
+          class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
+    Submit
+  </button>
+</form>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const formData = {
+    company: document.getElementById('company').value,
+    email: document.getElementById('email').value,
+    message: document.getElementById('message').value
+  };
+
+  try {
+    const response = await fetch('/.netlify/functions/submit-form', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    alert('Form submitted successfully!');
+    e.target.reset();
+  } catch (error) {
+    console.error('Error:', error);
+    alert('There was an error submitting the form. Please try again.');
+  }
+});
+</script>
         </div>
     </section>
 

@@ -34,7 +34,7 @@ exports.handler = async (event) => {
         Email: {
           email: email
         },
-        Message: {
+        Info: {
           rich_text: [{ text: { content: message } }]
         }
       }

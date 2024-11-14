@@ -20,11 +20,78 @@
                 <a href="#success-stories" class="text-gray-600 hover:text-blue-600">Success Stories</a>
                 <a href="#contact" class="text-gray-600 hover:text-blue-600">Contact</a>
             </div>
-            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+            <a href="#contact" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
                 Get Started
-            </button>
+            </a>
         </div>
     </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-20 bg-gradient-to-r from-blue-50 to-white">
+        <div class="container mx-auto px-4 flex flex-col items-center text-center">
+            <h1 class="text-5xl font-bold mb-6">
+                Maximize Your Amazon Presence
+            </h1>
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl">
+                Transform your brand's performance across Amazon marketplaces worldwide. Expert guidance for Vendor Central, Seller Central, and market expansion.
+            </p>
+            <div class="flex gap-4">
+                <a href="#contact" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700">
+                    Book a Consultation
+                </a>
+                <a href="#services" class="border border-blue-600 text-blue-600 px-8 py-3 rounded-lg hover:bg-blue-50">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-6 border rounded-lg hover:shadow-lg transition-shadow">
+                    <i data-feather="shopping-cart" class="w-12 h-12 text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Vendor Central Optimization</h3>
+                    <p class="text-gray-600">Enhanced terms, better margins, and strategic growth for your brand.</p>
+                </div>
+                <div class="p-6 border rounded-lg hover:shadow-lg transition-shadow">
+                    <i data-feather="trending-up" class="w-12 h-12 text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Seller Central Management</h3>
+                    <p class="text-gray-600">Full-service management to scale your Amazon business efficiently.</p>
+                </div>
+                <div class="p-6 border rounded-lg hover:shadow-lg transition-shadow">
+                    <i data-feather="globe" class="w-12 h-12 text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Global Expansion</h3>
+                    <p class="text-gray-600">Strategic market entry and growth across Amazon's global marketplaces.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section id="why-us" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Why Choose Us</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="flex items-start space-x-4">
+                    <i data-feather="check-circle" class="w-6 h-6 text-blue-600 flex-shrink-0"></i>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Proven Track Record</h3>
+                        <p class="text-gray-600">Successfully managed $100M+ in Amazon revenue across diverse brands.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <i data-feather="check-circle" class="w-6 h-6 text-blue-600 flex-shrink-0"></i>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Expert Team</h3>
+                        <p class="text-gray-600">Former Amazon employees and e-commerce veterans on your side.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Contact Section -->
     <section id="contact" class="py-20">
@@ -65,29 +132,33 @@
     </section>
 
     <script>
-    document.getElementById('contactForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const formData = {
-            company: e.target.elements.company.value,
-            email: e.target.elements.email.value,
-            message: e.target.elements.message.value
-        };
+        // Initialize Feather Icons
+        feather.replace();
 
-        try {
-            const response = await fetch('/.netlify/functions/submit-form', {
-                method: 'POST',
-                body: JSON.stringify(formData)
-            });
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
             
-            if (response.ok) {
-                alert('Thank you for your submission!');
-                e.target.reset();
+            const formData = {
+                company: e.target.elements.company.value,
+                email: e.target.elements.email.value,
+                message: e.target.elements.message.value
+            };
+
+            try {
+                const response = await fetch('/.netlify/functions/submit-form', {
+                    method: 'POST',
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    alert('Thank you for your submission!');
+                    e.target.reset();
+                }
+            } catch (error) {
+                alert('There was an error submitting your form');
             }
-        } catch (error) {
-            alert('There was an error submitting your form');
-        }
-    });
+        });
     </script>
 </body>
 </html>

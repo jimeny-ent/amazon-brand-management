@@ -160,5 +160,60 @@
             }
         });
     </script>
+    <script>
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    console.log('Form submitted'); // Debug line
+    
+    const submitButton = e.target.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending...';
+    
+    const formData = {
+        company: e.target.elements.company.value,
+        email: e.target.elements.email.value,
+        message: e.target.elements.message.value
+    };
+
+    try {
+        console.log('Sending to:', '/.netlify/functions/submit-form'); // Debug line
+        const response = await fetch('/.netlify/functions/submit-form', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        console.log('Response:', response); // Debug line
+        
+        if (response.ok) {
+            // Create and show modal
+            const modal = document.createElement('div');
+            modal.innerHTML = `
+                <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div class="bg-white p-8 rounded-lg max-w-md">
+                        <h3 class="text-xl font-bold mb-4">Thank You!</h3>
+                        <p class="mb-6">We've received your enquiry and will be in touch soon.</p>
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Close</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            // Handle close button
+            modal.querySelector('button').onclick = () => modal.remove();
+            
+            e.target.reset();
+        }
+    } catch (error) {
+        console.error('Error:', error); // Debug line
+        alert('There was an error submitting your form. Please try again.');
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Get Started';
+    }
+});
+</script>
 </body>
 </html>

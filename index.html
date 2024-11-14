@@ -9,14 +9,95 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
 </head>
-<body>
-    <!-- Previous content remains the same but in proper HTML format -->
-    
+<body class="min-h-screen bg-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white shadow-sm z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-blue-600">BrandGrow</div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#services" class="text-gray-600 hover:text-blue-600">Services</a>
+                <a href="#why-us" class="text-gray-600 hover:text-blue-600">Why Us</a>
+                <a href="#success-stories" class="text-gray-600 hover:text-blue-600">Success Stories</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600">Contact</a>
+            </div>
+            <a href="#contact" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                Get Started
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-20 bg-gradient-to-r from-blue-50 to-white">
+        <div class="container mx-auto px-4 flex flex-col items-center text-center">
+            <h1 class="text-5xl font-bold mb-6">
+                Maximize Your Amazon Presence
+            </h1>
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl">
+                Transform your brand's performance across Amazon marketplaces worldwide. Expert guidance for Vendor Central, Seller Central, and market expansion.
+            </p>
+            <div class="flex gap-4">
+                <a href="#contact" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700">
+                    Book a Consultation
+                </a>
+                <a href="#services" class="border border-blue-600 text-blue-600 px-8 py-3 rounded-lg hover:bg-blue-50">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-6 border rounded-lg hover:shadow-lg transition-shadow">
+                    <i data-feather="shopping-cart" class="w-12 h-12 text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Vendor Central Optimization</h3>
+                    <p class="text-gray-600">Enhanced terms, better margins, and strategic growth for your brand.</p>
+                </div>
+                <div class="p-6 border rounded-lg hover:shadow-lg transition-shadow">
+                    <i data-feather="trending-up" class="w-12 h-12 text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Seller Central Management</h3>
+                    <p class="text-gray-600">Full-service management to scale your Amazon business efficiently.</p>
+                </div>
+                <div class="p-6 border rounded-lg hover:shadow-lg transition-shadow">
+                    <i data-feather="globe" class="w-12 h-12 text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Global Expansion</h3>
+                    <p class="text-gray-600">Strategic market entry and growth across Amazon's global marketplaces.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section id="why-us" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Why Choose Us</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="flex items-start space-x-4">
+                    <i data-feather="check-circle" class="w-6 h-6 text-blue-600 flex-shrink-0"></i>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Proven Track Record</h3>
+                        <p class="text-gray-600">Successfully managed $100M+ in Amazon revenue across diverse brands.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <i data-feather="check-circle" class="w-6 h-6 text-blue-600 flex-shrink-0"></i>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Expert Team</h3>
+                        <p class="text-gray-600">Former Amazon employees and e-commerce veterans on your side.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="py-20">
         <div class="container mx-auto px-4 max-w-xl">
             <h2 class="text-3xl font-bold text-center mb-12">Ready to Grow?</h2>
-            <form id="contactForm" class="space-y-6" method="POST">
+            <form id="contactForm" class="space-y-6">
                 <div>
                     <input 
                         type="text" 
@@ -51,38 +132,57 @@
     </section>
 
     <script>
-    document.getElementById('contactForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        console.log('Form submitted');
-        
-        const formData = {
-            company: e.target.elements.company.value,
-            email: e.target.elements.email.value,
-            message: e.target.elements.message.value
-        };
+        // Initialize Feather Icons
+        feather.replace();
 
-        try {
-            const response = await fetch('/.netlify/functions/submit-form', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            console.log('Form submitted');
             
-            console.log('Response:', response);
-            
-            if (response.ok) {
-                alert('Thank you! We will be in touch soon.');
-                e.target.reset();
-            } else {
-                throw new Error('Form submission failed');
+            const formData = {
+                company: e.target.elements.company.value,
+                email: e.target.elements.email.value,
+                message: e.target.elements.message.value
+            };
+
+            try {
+                const response = await fetch('/.netlify/functions/submit-form', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                console.log('Response:', response);
+                
+                if (response.ok) {
+                    // Create and show modal
+                    const modal = document.createElement('div');
+                    modal.innerHTML = `
+                        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                            <div class="bg-white p-8 rounded-lg max-w-md">
+                                <h3 class="text-xl font-bold mb-4">Thank You!</h3>
+                                <p class="mb-6">We've received your enquiry and will be in touch soon.</p>
+                                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Close</button>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(modal);
+                    
+                    // Handle close button
+                    modal.querySelector('button').onclick = () => modal.remove();
+                    
+                    e.target.reset();
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('There was an error submitting your form');
             }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('There was an error submitting your form');
-        }
-    });
+        });
     </script>
 </body>
 </html>
